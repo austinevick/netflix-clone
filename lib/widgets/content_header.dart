@@ -186,9 +186,44 @@ class _ContentHeaderDesktopState extends State<ContentHeaderDesktop> {
                             ),
                           )
                         ]),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      PlayButton(),
+                      const SizedBox(
+                        width: 18,
+                      ),
+                      FlatButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(Icons.info_outline),
+                          label: Text('More Info',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ))),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      if (videoPlayerController.value.initialized)
+                        IconButton(
+                          iconSize: 30,
+                          color: Colors.white,
+                          icon: Icon(
+                              isMuted ? Icons.volume_off : Icons.volume_up),
+                          onPressed: () => setState(() {
+                            isMuted
+                                ? videoPlayerController.setVolume(100)
+                                : videoPlayerController.setVolume(0);
+                            isMuted = videoPlayerController.value.volume == 0;
+                          }),
+                        )
+                    ],
                   )
                 ],
-              ))
+              )),
         ],
       ),
     );
