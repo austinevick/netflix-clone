@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_ui/cubits/app_bar/app_bar_cubit.dart';
 import 'package:flutter_netflix_ui/data/data.dart';
 import 'package:flutter_netflix_ui/widgets/content_header.dart';
+import 'package:flutter_netflix_ui/widgets/content_list.dart';
 import 'package:flutter_netflix_ui/widgets/custom_appbar.dart';
 import 'package:flutter_netflix_ui/widgets/preview.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController _scrollController;
-  double _scrollOffset = 0.0;
   @override
   void initState() {
     _scrollController = ScrollController()
       ..addListener(() {
-        setState(() {
-          _scrollOffset = _scrollController.offset;
-        });
+        context.bloc<AppBarCubit>().setOffset(_scrollController.offset);
       });
     super.initState();
   }
@@ -40,8 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Icon(Icons.cast),
       ),
       appBar: PreferredSize(
-        child: CustomAppBar(
-          scrollOffset: _scrollOffset,
+        child: BlocBuilder<AppBarCubit, double>(
+          builder: (context, scrollOffset) {
+            return CustomAppBar(
+              scrollOffset: scrollOffset,
+            );
+          },
         ),
         preferredSize: Size(
           screenSize.width,
@@ -60,11 +65,33 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             sliver: SliverToBoxAdapter(
               child: Previews(
+                key: PageStorageKey('previews'),
                 title: 'Previews',
                 contentList: previews,
               ),
             ),
-          )
+          ),
+          SliverToBoxAdapter(
+            child: ContentList(
+              key: PageStorageKey('myList'),
+              title: 'My List',
+              contentList: myList,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ContentList(
+                key: PageStorageKey('original'),
+                title: 'Netflix Originals',
+                contentList: originals,
+                isOriginal: true),
+          ),
+          SliverToBoxAdapter(
+            child: ContentList(
+              key: PageStorageKey('trending'),
+              title: 'Trending',
+              contentList: trending,
+            ),
+          ),
         ],
       ),
     );

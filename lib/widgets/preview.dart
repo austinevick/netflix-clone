@@ -53,28 +53,11 @@ class Previews extends StatelessWidget {
                                 Border.all(color: content.color, width: 4.0),
                             image: DecorationImage(
                                 colorFilter: ColorFilter.mode(
-                                    Colors.black45, BlendMode.darken),
+                                    Colors.black38, BlendMode.darken),
                                 image: AssetImage(
                                   content.imageUrl,
                                 ),
                                 fit: BoxFit.cover)),
-                      ),
-                      Container(
-                        height: 130,
-                        width: 130,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              stops: [0, 0.25, 1],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                Colors.black87,
-                                Colors.black45,
-                                Colors.transparent
-                              ]),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: content.color, width: 4.0),
-                        ),
                       ),
                       Positioned(
                           left: 0,
