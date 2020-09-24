@@ -1,5 +1,8 @@
 # flutter_netflix_ui
 
+![](https://github.com/austinevick/netflix-clone/blob/master/screenshot/netflix%20web.PNG)
+![](https://github.com/austinevick/netflix-clone/blob/master/screenshot/netflix%20web2.PNG)
+
 A new Flutter project.
 
 ## Getting Started
